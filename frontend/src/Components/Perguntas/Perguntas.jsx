@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import "./perguntas.css" // Import the CSS file
+import "./perguntas.css"
 
 const Perguntas = () => {
   const navigate = useNavigate()
