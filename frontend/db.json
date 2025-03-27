@@ -1,0 +1,24 @@
+{
+  "perguntas": [
+    {
+      "id": "1",
+      "pergunta": "Qual é a sua linguagem de programação favorita?",
+      "resposta": "Python"
+    },
+    {
+      "id": "2",
+      "pergunta": "Qual é o seu banco de dados preferido?",
+      "resposta": ""
+    },
+    {
+      "id": "3",
+      "pergunta": "Qual framework você mais usa no frontend?",
+      "resposta": ""
+    },
+    {
+      "id": "4",
+      "pergunta": "Qual é o seu editor de código preferido?",
+      "resposta": ""
+    }
+  ]
+}

@@ -1,5 +1,6 @@
-import './App.css'
+import './App.css';
 import Login from './Components/Login/Login';
+
 
 function App() {
 
@@ -10,4 +11,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
