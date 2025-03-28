@@ -6,7 +6,6 @@ const perguntaSchema = new Schema(
     id: {
       type: Number,
       unique: true, // Garante que não haverá IDs duplicados
-      required: true,
     },
     pergunta: {
       type: String,
@@ -14,7 +13,6 @@ const perguntaSchema = new Schema(
     },
     resposta: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }
