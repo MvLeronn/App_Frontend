@@ -7,10 +7,35 @@ const createUserToken = require("../helpers/create-user-token");
 const getToken = require("../helpers/get-token");
 
 module.exports = class UserController {
+  // Função para inicializar o usuário administrador caso não exista
+  static async initializeAdminUser() {
+    const email = "admin@gmail.com";
+    const password = "admin";
+
+    try {
+      const userExists = await User.findOne({ email: email });
+      if (!userExists) {
+        const salt = await bcrypt.genSalt(12);
+        const passwordHash = await bcrypt.hash(password, salt);
+
+        // Cria o usuário
+        const user = new User({
+          email: email,
+          password: passwordHash,
+        });
+
+        await user.save();
+      } else {
+        console.log("Usuário administrador já existe.");
+      }
+    } catch (error) {
+      console.error("Erro ao inicializar o usuário administrador:", error);
+    }
+  }
   static async register(req, res) {
     const { email, password, confirmPassword } = req.body;
 
-    // validations
+    // Validações
     if (!email) {
       res.status(422).json({ message: "O e-mail é obrigatório" });
       return;
@@ -31,19 +56,18 @@ module.exports = class UserController {
       return;
     }
 
-    //check if user exist
+    // Verifica se o usuário já existe
     const userExists = await User.findOne({ email: email });
-
     if (userExists) {
       res.status(422).json({ message: "Por favor, utilize outro e-mail" });
       return;
     }
 
-    // create a password
+    // Cria o hash da senha
     const salt = await bcrypt.genSalt(12);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    // create a user
+    // Cria o usuário
     const user = new User({
       email: email,
       password: passwordHash,
@@ -60,7 +84,7 @@ module.exports = class UserController {
   static async login(req, res) {
     const { email, password } = req.body;
 
-    // validations
+    // Validações
     if (!email) {
       res.status(422).json({ message: "O e-mail é obrigatório" });
       return;
@@ -71,9 +95,8 @@ module.exports = class UserController {
       return;
     }
 
-    //check if user exist
+    // Verifica se o usuário existe
     const user = await User.findOne({ email: email });
-
     if (!user) {
       res.status(422).json({
         message: "Não encontramos um usuário cadastrado com esse e-mail",
@@ -81,9 +104,8 @@ module.exports = class UserController {
       return;
     }
 
-    // check if password match with db password
+    // Verifica se a senha confere com a do banco de dados
     const checkPassword = await bcrypt.compare(password, user.password);
-
     if (!checkPassword) {
       res.status(422).json({ message: "Senha inválida" });
       return;
@@ -102,6 +124,7 @@ module.exports = class UserController {
       const decoded = jwt.verify(token, "nossosecret");
 
       currentUser = await User.findById(decoded.id);
+      // Remove a senha do objeto retornado
       currentUser.password = undefined;
     } else {
       currentUser = null;

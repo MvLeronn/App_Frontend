@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const moongose = require("mongoose");
 
 async function main() {
@@ -7,4 +8,4 @@ async function main() {
 
 main().catch((err) => console.log(err));
 
-module.exports = moongose;
+module.exports = mongoose;
