@@ -25,10 +25,9 @@ const Perguntas = () => {
       })
       .catch((err) => console.error("Erro ao buscar perguntas:", err));
   }, []);
-  
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); 
+    localStorage.removeItem("token");
     navigate("/login");
   };
 
@@ -48,19 +47,36 @@ const Perguntas = () => {
       },
       body: JSON.stringify({ resposta: novaResposta }),
     })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Erro ${res.status}: ${res.statusText}`);
-        }
-        return res.json();
-      })
-      .then((updatedQuestion) => {
-        setPerguntas(perguntas.map((q) => (q.id === id ? updatedQuestion : q)));
-        setRespostas({ ...respostas, [id]: "" });
-      })
-      .catch((err) => console.error("Erro ao enviar resposta:", err));
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Erro ${res.status}: ${res.statusText}`);
+      }
+      return res.json();
+    })
+    .then(() => {
+      // Após responder, faz um novo GET para atualizar a lista completa
+      return fetch("http://localhost:5000/perguntas", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (Array.isArray(data.perguntas)) {
+        setPerguntas(data.perguntas);
+        setRespostas(prev => {
+          const newRespostas = {...prev};
+          delete newRespostas[id];
+          return newRespostas;
+        });
+      }
+    })
+    .catch((err) => {
+      console.error("Erro ao enviar resposta:", err);
+      alert("Ocorreu um erro ao enviar a resposta");
+    });
   };
-  
 
   const perguntasParaResponder = perguntas.filter(
     (q) => !q.resposta || q.resposta.trim() === ""
@@ -110,7 +126,10 @@ const Perguntas = () => {
                     value={respostas[q.id] || ""}
                     onChange={(e) => handleAnswerChange(q.id, e.target.value)}
                   />
-                  <button className="submit-btn" onClick={() => submitAnswer(q.id)}>
+                  <button
+                    className="submit-btn"
+                    onClick={() => submitAnswer(q.id)}
+                  >
                     Enviar
                   </button>
                 </div>
