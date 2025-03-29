@@ -10,7 +10,12 @@ app.use(express.json());
 //app.use(express.urlencoded({ extended: true }));
 
 // Solve CORS
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:5173", "http://127.0.0.1:5500"],
+  })
+);
 
 // wait for the database connection to initialize the admin user
 mongoose.connection.once("open", () => {
