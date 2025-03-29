@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import "./Login.css";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -18,13 +18,39 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (username === "admin@gmail.com" && password === "admin") {
-      // Seta a flag de autenticação (mudar para token dps)
-      localStorage.setItem('isAuthenticated', true);
+  
+    const loginData = { email, password };
+  
+    try {
+      const response = await fetch("http://localhost:5000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(errorData.message || "Erro ao fazer login");
+        return;
+      }
+  
+      const data = await response.json();
+  
+      // Armazena o token retornado pela API
+      localStorage.setItem("token", data.token);
+  
+      console.log("Login realizado com sucesso, redirecionando para /perguntas");
+  
+      // Redireciona para a página de perguntas
       navigate("/perguntas");
+    } catch (error) {
+      console.error("Erro no login:", error);
+      alert("Ocorreu um erro ao fazer login.");
     }
   };
+  
 
   return (
     <div className="container">
@@ -34,7 +60,7 @@ const Login = () => {
           <input
             type="email"
             placeholder="E-mail"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <FaUser className="icon" />

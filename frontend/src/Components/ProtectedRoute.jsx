@@ -2,10 +2,10 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
-  // Aqui usamos localStorage para verificar se o usuário está autenticado
-  const isAuthenticated = localStorage.getItem('isAuthenticated');
+  // Verifica se existe um token salvo
+  const token = localStorage.getItem('token');
 
-  if (!isAuthenticated) {
+  if (!token) {
     // Se não estiver autenticado, redireciona para o login
     return <Navigate to="/login" replace />;
   }

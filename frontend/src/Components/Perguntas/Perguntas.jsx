@@ -1,53 +1,73 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import "./perguntas.css"
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./perguntas.css";
 
 const Perguntas = () => {
-  const navigate = useNavigate()
-  const [activeTab, setActiveTab] = useState("paraResponder")
-  const [perguntas, setPerguntas] = useState([])
-  const [respostas, setRespostas] = useState({})
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("paraResponder");
+  const [perguntas, setPerguntas] = useState([]);
+  const [respostas, setRespostas] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:3001/perguntas")
+    fetch("http://localhost:5000/perguntas", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Adicionando o token
+      },
+    })
       .then((res) => res.json())
-      .then((data) => setPerguntas(data))
-      .catch((err) => console.error("Erro ao buscar perguntas:", err))
-  }, [])
+      .then((data) => {
+        if (Array.isArray(data.perguntas)) {
+          setPerguntas(data.perguntas);
+        } else {
+          console.error("Resposta inesperada do servidor:", data);
+          setPerguntas([]);
+        }
+      })
+      .catch((err) => console.error("Erro ao buscar perguntas:", err));
+  }, []);
+  
 
   const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated")
-    navigate("/login")
-  }
+    localStorage.removeItem("token"); 
+    navigate("/login");
+  };
 
   const handleAnswerChange = (id, value) => {
-    setRespostas({ ...respostas, [id]: value })
-  }
+    setRespostas({ ...respostas, [id]: value });
+  };
 
   const submitAnswer = (id) => {
-    const novaResposta = respostas[id]
-    fetch(`http://localhost:3001/perguntas/${id}`, {
+    const novaResposta = respostas[id];
+    const token = localStorage.getItem("token");
+  
+    fetch(`http://localhost:5000/perguntas/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, 
       },
       body: JSON.stringify({ resposta: novaResposta }),
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error(`Erro ${res.status}: ${res.statusText}`)
+          throw new Error(`Erro ${res.status}: ${res.statusText}`);
         }
-        return res.json()
+        return res.json();
       })
       .then((updatedQuestion) => {
-        setPerguntas(perguntas.map((q) => (q.id === id ? updatedQuestion : q)))
-        setRespostas({ ...respostas, [id]: "" })
+        setPerguntas(perguntas.map((q) => (q.id === id ? updatedQuestion : q)));
+        setRespostas({ ...respostas, [id]: "" });
       })
-      .catch((err) => console.error("Erro ao enviar resposta:", err))
-  }
+      .catch((err) => console.error("Erro ao enviar resposta:", err));
+  };
+  
 
-  const perguntasParaResponder = perguntas.filter((q) => !q.resposta || q.resposta.trim() === "")
-  const perguntasRespondidas = perguntas.filter((q) => q.resposta && q.resposta.trim() !== "")
+  const perguntasParaResponder = perguntas.filter(
+    (q) => !q.resposta || q.resposta.trim() === ""
+  );
+  const perguntasRespondidas = perguntas.filter(
+    (q) => q.resposta && q.resposta.trim() !== ""
+  );
 
   return (
     <div className="perguntas-container">
@@ -116,8 +136,7 @@ const Perguntas = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Perguntas
-
+export default Perguntas;
