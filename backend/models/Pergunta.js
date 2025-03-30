@@ -1,6 +1,7 @@
 const mongoose = require("../db/conn");
 const { Schema } = mongoose;
 
+// Define o modelo de pergunta
 const perguntaSchema = new Schema(
   {
     id: {

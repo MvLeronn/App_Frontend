@@ -32,6 +32,8 @@ module.exports = class UserController {
       console.error("Erro ao inicializar o usuário administrador:", error);
     }
   }
+
+  // Função para registrar um novo usuário
   static async register(req, res) {
     const { email, password, confirmPassword } = req.body;
 

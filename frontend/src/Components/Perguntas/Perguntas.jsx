@@ -39,10 +39,12 @@ const Perguntas = () => {
     navigate("/login");
   };
 
+  // Função para atualizar a resposta
   const handleAnswerChange = (id, value) => {
     setRespostas({ ...respostas, [id]: value });
   };
 
+  // Função para enviar a resposta
   const submitAnswer = (id) => {
     const novaResposta = respostas[id];
     const token = localStorage.getItem("token");
@@ -76,6 +78,7 @@ const Perguntas = () => {
       });
   };
 
+  // Divide as perguntas em "paraResponder" e "respondidas"
   const perguntasParaResponder = perguntas.filter(
     (q) => !q.resposta || q.resposta.trim() === ""
   );

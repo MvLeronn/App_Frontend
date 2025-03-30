@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const getToken = require("./get-token");
 
-// midlleware to validate token
+// midlleware para validar o token
 const checkToken = (req, res, next) => {
   if (!req.headers.authorization) {
     return res.status(401).json({ message: "Acesso negado" });

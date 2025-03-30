@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import "./Login.css";
 
+// Componente de login
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

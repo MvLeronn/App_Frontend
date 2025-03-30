@@ -1,7 +1,8 @@
-const moongose = require("../db/conn");
-const { Schema } = moongose;
+const mongoose = require("../db/conn");
+const { Schema } = mongoose;
 
-const User = moongose.model(
+// Define o modelo de usuário
+const User = mongoose.model(
   "User",
   new Schema(
     {

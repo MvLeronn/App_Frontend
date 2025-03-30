@@ -1,9 +1,11 @@
 const Pergunta = require("../models/Pergunta");
 
 module.exports = class PerguntaController {
+  // Método para criar uma nova pergunta
   static async create(req, res) {
     const { pergunta } = req.body;
 
+    // checa se a pergunta foi enviada
     if (!pergunta) {
       res.status(422).json({ message: "A Pergunta é obrigatória" });
       return;
@@ -14,6 +16,7 @@ module.exports = class PerguntaController {
       resposta: "",
     });
 
+    // Salva a pergunta no banco
     try {
       await novaPergunta.save();
       res.status(201).json({ message: "Pergunta criada com sucesso" });
@@ -23,6 +26,7 @@ module.exports = class PerguntaController {
     }
   }
 
+  // Método para pegar todas as perguntas
   static async getAll(req, res) {
     const perguntas = await Pergunta.find({}).sort("id");
     res.status(200).json({
@@ -30,10 +34,11 @@ module.exports = class PerguntaController {
     });
   }
 
+  // Método para pegar uma pergunta pelo id
   static async getById(req, res) {
     const id = req.params.id;
 
-    // check if pergunta exists
+    // checa se a pergunta existe
     const pergunta = await Pergunta.findOne({ id });
     if (!pergunta) {
       res.status(404).json({ message: "Pergunta nao encontrada" });
@@ -45,17 +50,17 @@ module.exports = class PerguntaController {
     });
   }
 
-  static async update(req,res){
-
+  // Método para atualizar uma pergunta
+  static async update(req, res) {
     const id = req.params.id;
-    
-    // check if pergunta exists
+
+    // checa se a pergunta existe
     const pergunta = await Pergunta.findOne({ id: id });
     if (!pergunta) {
       return res.status(404).json({ message: "Pergunta não encontrada" });
     }
 
-    // get the response sent
+    // checa se a resposta foi enviada
     const { resposta } = req.body;
     if (!resposta) {
       return res.status(400).json({ message: "A resposta é obrigatória" });
@@ -67,6 +72,5 @@ module.exports = class PerguntaController {
     res.status(200).json({
       pergunta: pergunta,
     });
-
   }
 };
