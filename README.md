@@ -48,7 +48,7 @@ Antes de começar, você precisa ter os seguintes softwares instalados:
 
 - Git
 - Node.js e npm (Node Package Manager)
-- MongoDB
+- MongoDB e MongoDB Compass
 
 ## Executando o projeto
 
