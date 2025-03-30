@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaSync } from "react-icons/fa";
 import "./perguntas.css";
 
 const Perguntas = () => {
@@ -8,10 +9,12 @@ const Perguntas = () => {
   const [perguntas, setPerguntas] = useState([]);
   const [respostas, setRespostas] = useState({});
 
-  useEffect(() => {
+  // Função para buscar as perguntas
+  const fetchPerguntas = () => {
+    const token = localStorage.getItem("token");
     fetch("http://localhost:5000/perguntas", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`, // Adicionando o token
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
@@ -24,6 +27,11 @@ const Perguntas = () => {
         }
       })
       .catch((err) => console.error("Erro ao buscar perguntas:", err));
+  };
+
+  // Busca as perguntas na montagem do componente
+  useEffect(() => {
+    fetchPerguntas();
   }, []);
 
   const handleLogout = () => {
@@ -38,44 +46,34 @@ const Perguntas = () => {
   const submitAnswer = (id) => {
     const novaResposta = respostas[id];
     const token = localStorage.getItem("token");
-  
+
     fetch(`http://localhost:5000/perguntas/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, 
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ resposta: novaResposta }),
     })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`Erro ${res.status}: ${res.statusText}`);
-      }
-      return res.json();
-    })
-    .then(() => {
-      // Após responder, faz um novo GET para atualizar a lista completa
-      return fetch("http://localhost:5000/perguntas", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (Array.isArray(data.perguntas)) {
-        setPerguntas(data.perguntas);
-        setRespostas(prev => {
-          const newRespostas = {...prev};
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Erro ${res.status}: ${res.statusText}`);
+        }
+        return res.json();
+      })
+      .then(() => {
+        // Após responder, atualiza a lista de perguntas
+        fetchPerguntas();
+        setRespostas((prev) => {
+          const newRespostas = { ...prev };
           delete newRespostas[id];
           return newRespostas;
         });
-      }
-    })
-    .catch((err) => {
-      console.error("Erro ao enviar resposta:", err);
-      alert("Ocorreu um erro ao enviar a resposta");
-    });
+      })
+      .catch((err) => {
+        console.error("Erro ao enviar resposta:", err);
+        alert("Ocorreu um erro ao enviar a resposta");
+      });
   };
 
   const perguntasParaResponder = perguntas.filter(
@@ -106,6 +104,9 @@ const Perguntas = () => {
           onClick={() => setActiveTab("respondidas")}
         >
           Perguntas Respondidas
+        </button>
+        <button className="refresh-btn" onClick={fetchPerguntas}>
+          <FaSync />
         </button>
       </div>
 

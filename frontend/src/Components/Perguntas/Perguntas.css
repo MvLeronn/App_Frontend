@@ -59,6 +59,22 @@ html, body {
     flex-wrap: wrap;
     gap: 15px;
   }
+
+  .refresh-btn {
+    color: #ffeb3b;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 40px;
+    font-size: 30px;
+    padding: 5px;
+    transition: transform 0.3s ease;
+  }
+  
+  .refresh-btn:hover {
+    transform: rotate(90deg);
+  }
   
   .tab-btn {
     background-color: #2A2A2A;
