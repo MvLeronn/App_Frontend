@@ -1,4 +1,4 @@
-# PromoPage - Página da propaganda
+# AppPromoPage
 
 1. **Frontend**: React JS com Vite - [AppPromoPage Frontend - Repositório](https://github.com/MvLeronn/AppPromoPage/tree/main/frontend)
 2. **Backend**: Node.js com Express e MongoDB - [AppPromoPage Backend - Repositório](https://github.com/MvLeronn/AppPromoPage/tree/main/backend)
