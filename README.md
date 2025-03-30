@@ -52,7 +52,7 @@ Antes de começar, você precisa ter os seguintes softwares instalados:
 
 ## Executando o projeto
 
-1. Clone os repositórios
+1. **Clone os repositórios**
 
 - git clone https://github.com/MvLeronn/PromoPage.git
 - git clone https://github.com/MvLeronn/AppPromoPage.git
