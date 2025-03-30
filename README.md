@@ -68,9 +68,9 @@ Antes de começar, você precisa ter os seguintes softwares instalados:
         1. npm install
         2. npm start
 
-    Com o npm start, vai rodar o backend e criar o banco de dados no MongoDB na porta **localhost:27017**, nosso banco de dados terá o nome de **apppromopage**.
+    Com o npm start, vai rodar o backend na porta 5000 e criar o banco de dados no MongoDB na porta **localhost:27017**, o banco de dados terá o nome de **apppromopage**, checar pelo MongoDB Compass e foi criado corretamente.
 
-    **Obs**: No Backend está setado para que apenas as origens ["http://localhost:5173", "http://127.0.0.1:5500"] consigam acessar o servidor. Sendo a primeira o frontend e a segunda origem o index.html da página propaganda. Então fique esperto se precisar mudar a segunda origem para o URL que abre o seu index.html da PromoPage, para mudar é na linha 16 em index.js do backend.
+    **Obs**: No backend, está configurado para aceitar qualquer origem com credenciais, na linha 16 do arquivo index.js. Abaixo desse código, há uma parte comentada que você pode descomentar e substituir, caso queira restringir o acesso apenas às duas origens especificadas do frontend e da página de propaganda: ["http://localhost:5173", "http://127.0.0.1:5500"].
 
 4. **Frontend (React com Vite)**
     1. Pelo terminal dentro da pasta frontned, execute os comandos:
