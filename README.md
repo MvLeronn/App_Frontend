@@ -1,11 +1,12 @@
-# AppPromoPage
+# PromoPage - Página da propaganda
 
-1. **Frontend**: React JS com Vite
-2. **Backend**: Node.js com Express e MongoDB
+1. **Frontend**: React JS com Vite - [AppPromoPage Frontend - Repositório](https://github.com/MvLeronn/AppPromoPage/tree/main/frontend)
+2. **Backend**: Node.js com Express e MongoDB - [AppPromoPage Backend - Repositório](https://github.com/MvLeronn/AppPromoPage/tree/main/backend)
 3. **PromoPage**: Página estática da promoção da série (HTML/CSS/JS) - [PromoPage - Repositório](https://github.com/MvLeronn/PromoPage)
 
 ## Descrição
 
+- **PromoPage**: Página de propaganda da série e responsável pela criação da pergunta.
 - **Backend**: É responsável pelo registro e login de usuários, além de gerenciar as perguntas, permitindo que sejam recebidas, buscadas e respondidas.
 - **Frontend**: Oferece uma interface onde o usuário pode realizar o login e visualizar uma página com as perguntas, organizadas em duas abas: "Perguntas para Responder" e "Perguntas Respondidas". Na aba "Perguntas para Responder", o usuário pode responder às perguntas pendentes, enquanto na aba "Perguntas Respondidas", ele pode visualizar suas respostas anteriores.
 
