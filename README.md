@@ -41,3 +41,34 @@
 
 - Aba "Novas Perguntas": visualização e resposta
 - Aba "Respondidas": consulta histórica das respostas
+
+## Pré-requisitos
+
+Antes de começar, você precisa ter os seguintes softwares instalados:
+
+- Git
+- Node.js e npm (Node Package Manager)
+- MongoDB
+
+## Executando o projeto
+
+1. Clone os repositórios
+
+- git clone https://github.com/MvLeronn/PromoPage.git
+- git clone https://github.com/MvLeronn/AppPromoPage.git
+
+2. **PromoPage (HTML, CSS e JS puro)**
+
+    1. Abre o index.html no seu navegador
+    2. Abra o arquivo index.html diretamente no seu navegador (não é necessário servidor, pois é uma página estática).
+
+3. **Backend (Node.js + Express + MongoDB)**
+
+    1. Navegue até a pasta do Backend dentro de APPPROMOPAGE
+    2. npm install
+    3. npm start
+
+4. **Frontend (React com Vite)**
+    1. npm install
+    2. npm run dev
+    3. [Acesse o frontend no navegador](http://localhost:5173/)
