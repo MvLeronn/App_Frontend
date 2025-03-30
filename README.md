@@ -64,18 +64,19 @@ Antes de começar, você precisa ter os seguintes softwares instalados:
 
 3. **Backend (Node.js + Express + MongoDB)**
 
-    1. Navegue até a pasta do Backend dentro de APPPROMOPAGE
-    2. npm install
-    3. npm start
+    1. Pelo terminal dentro da pasta backend, execute os comandos:
+        1. npm install
+        2. npm start
 
     Com o npm start, vai rodar o backend e criar o banco de dados no MongoDB na porta **localhost:27017**, nosso banco de dados terá o nome de **apppromopage**.
 
     **Obs**: No Backend está setado para que apenas as origens ["http://localhost:5173", "http://127.0.0.1:5500"] consigam acessar o servidor. Sendo a primeira o frontend e a segunda origem o index.html da página propaganda. Então fique esperto se precisar mudar a segunda origem para o URL que abre o seu index.html da PromoPage, para mudar é na linha 16 em index.js do backend.
 
 4. **Frontend (React com Vite)**
-    1. npm install
-    2. npm run dev
-    3. [Acesse o frontend no navegador](http://localhost:5173/)
-    4. Logar:
+    1. Pelo terminal dentro da pasta frontned, execute os comandos:
+        1. npm install
+        2. npm run dev
+    2. [Acesse o frontend no navegador, clicando aqui!](http://localhost:5173/)
+    3. Faça login:
         - email: admin@gmail.com
         - senha: admin
