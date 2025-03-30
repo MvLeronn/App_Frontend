@@ -59,8 +59,8 @@ Antes de começar, você precisa ter os seguintes softwares instalados:
 
 2. **PromoPage (HTML, CSS e JS puro)**
 
-    1. Abre o index.html no seu navegador
-    2. Abra o arquivo index.html diretamente no seu navegador (não é necessário servidor, pois é uma página estática).
+    1. Abra o arquivo index.html diretamente no seu navegador (não é necessário servidor, pois é uma página estática).
+    **Dica**: Use a extenção Live Server do VSCODE e clica com o botão direto no index.html e clica em "Open With live Server"
 
 3. **Backend (Node.js + Express + MongoDB)**
 
@@ -68,9 +68,9 @@ Antes de começar, você precisa ter os seguintes softwares instalados:
     2. npm install
     3. npm start
 
-    Com o npm start vai rodar o backend e criar o banco de dados no MongoDB na porta localhost:27017, nosso banco de dados terá o nome de apppromopage.
+    Com o npm start, vai rodar o backend e criar o banco de dados no MongoDB na porta **localhost:27017**, nosso banco de dados terá o nome de **apppromopage**.
 
-    **Obs**: No Backend está setado para que apenas as origens ["http://localhost:5173", "http://127.0.0.1:5500"] consigam acessar o servidor. Sendo a primeira o frontend e a segunda origem o index.html da página propaganda. Então fique esperto se precisar mudar, está na linha 16 em index.js do backend.
+    **Obs**: No Backend está setado para que apenas as origens ["http://localhost:5173", "http://127.0.0.1:5500"] consigam acessar o servidor. Sendo a primeira o frontend e a segunda origem o index.html da página propaganda. Então fique esperto se precisar mudar a segunda origem para o URL que abre o seu index.html da PromoPage, para mudar é na linha 16 em index.js do backend.
 
 4. **Frontend (React com Vite)**
     1. npm install
