@@ -14,8 +14,7 @@
 
 ### [PromoPage (HTML/CSS/JS)](https://github.com/MvLeronn/PromoPage)
 
-- Formulário público para envio de perguntas
-- Integração com o backend via API
+- Formulário público para envio de perguntas via API
 
 ### [Backend (Node.js/Express + MongoDB)](https://github.com/MvLeronn/AppPromoPage/tree/main/backend)
 
