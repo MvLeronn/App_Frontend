@@ -48,7 +48,7 @@ Antes de começar, você precisa ter os seguintes softwares instalados:
 
 - Git
 - Node.js e npm (Node Package Manager)
-- MongoDB e MongoDB Compass
+- MongoDB e MongoDB Compass (Mongo DB tem que estar no localhost:27017)
 
 ## Executando o projeto
 
@@ -67,6 +67,8 @@ Antes de começar, você precisa ter os seguintes softwares instalados:
     1. Navegue até a pasta do Backend dentro de APPPROMOPAGE
     2. npm install
     3. npm start
+
+    **Obs**: No Backend está setado para que apenas as origens ["http://localhost:5173", "http://127.0.0.1:5500"] consigam acessar o servidor. Sendo a primeira o frontend e a segunda origem o index.html da página propaganda. Então fique esperto se precisar mudar, está na linha 16 em index.js do backend.
 
 4. **Frontend (React com Vite)**
     1. npm install
